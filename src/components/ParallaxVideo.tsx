@@ -33,15 +33,15 @@ export default function ParallaxVideo({
 
     let rafId = 0;
     const tick = () => {
-      current.current.x += (target.current.x - current.current.x) * 0.06;
-      current.current.y += (target.current.y - current.current.y) * 0.06;
+      current.current.x += (target.current.x - current.current.x) * 0.08;
+      current.current.y += (target.current.y - current.current.y) * 0.08;
       current.current.scroll += (target.current.scroll - current.current.scroll) * 0.08;
 
-      const tiltX = current.current.y * -5;
-      const tiltY = current.current.x * 5;
-      const panX = current.current.x * 14;
-      const panY = current.current.scroll * -50 + current.current.y * 10;
-      const scale = 1.12 + Math.min(Math.abs(current.current.scroll) * 0.06, 0.08);
+      const tiltX = current.current.y * -16;
+      const tiltY = current.current.x * 16;
+      const panX = current.current.x * 45;
+      const panY = current.current.scroll * -60 + current.current.y * 30;
+      const scale = 1.22 + Math.min(Math.abs(current.current.scroll) * 0.05, 0.06);
 
       video.style.transform = `scale(${scale}) translate(${panX}px, ${panY}px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 
