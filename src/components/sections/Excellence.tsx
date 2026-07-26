@@ -12,7 +12,7 @@ export default function Excellence() {
       id="excellence"
       className="relative min-h-screen py-28 md:py-0 md:flex md:flex-col md:justify-center overflow-hidden bg-ink text-paper snap-start"
     >
-      <ParallaxVideo src="/videos/excellence.mp4" className="absolute inset-0" />
+      <ParallaxVideo src="/videos/skyline.mp4" className="absolute inset-0" />
       <div className="absolute inset-0 bg-ink/70" />
 
       <div className="absolute top-24 left-6 md:left-14 z-10 text-xs tracking-[0.3em] uppercase font-light">
