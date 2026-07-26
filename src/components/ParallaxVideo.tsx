@@ -68,6 +68,7 @@ export default function ParallaxVideo({
     >
       <BoomerangVideo
         src={src}
+        playing={false}
         className="w-full h-full object-cover will-change-transform"
       />
     </div>

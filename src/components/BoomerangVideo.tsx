@@ -6,10 +6,12 @@ export default function BoomerangVideo({
   src,
   className = "",
   playbackRate = 0.55,
+  playing = true,
 }: {
   src: string;
   className?: string;
   playbackRate?: number;
+  playing?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -17,25 +19,22 @@ export default function BoomerangVideo({
     const video = videoRef.current;
     if (!video) return;
 
-    let direction: 1 | -1 = 1;
     let rafId = 0;
-    let reversing = false;
-
-    video.playbackRate = playbackRate;
 
     const startAt = () => {
       if (video.duration && Number.isFinite(video.duration)) {
         video.currentTime = video.duration * 0.15;
       }
-      video.play().catch(() => {});
+      if (playing) {
+        video.playbackRate = playbackRate;
+        video.play().catch(() => {});
+      }
     };
 
     const stepReverse = () => {
       if (!video.duration) return;
       video.currentTime -= (1 / 30) * playbackRate;
       if (video.currentTime <= 0.05) {
-        direction = 1;
-        reversing = false;
         video.currentTime = 0;
         video.play().catch(() => {});
         return;
@@ -44,15 +43,13 @@ export default function BoomerangVideo({
     };
 
     const onEnded = () => {
-      direction = -1;
-      reversing = true;
       video.pause();
       rafId = requestAnimationFrame(stepReverse);
     };
 
     const onLoaded = () => startAt();
     video.addEventListener("loadedmetadata", onLoaded);
-    video.addEventListener("ended", onEnded);
+    if (playing) video.addEventListener("ended", onEnded);
 
     if (video.readyState >= 1) startAt();
 
@@ -60,10 +57,8 @@ export default function BoomerangVideo({
       video.removeEventListener("loadedmetadata", onLoaded);
       video.removeEventListener("ended", onEnded);
       cancelAnimationFrame(rafId);
-      void direction;
-      void reversing;
     };
-  }, [playbackRate]);
+  }, [playbackRate, playing]);
 
   return (
     <video
